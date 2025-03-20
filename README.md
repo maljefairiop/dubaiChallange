@@ -15,6 +15,7 @@ This platform enables users to:
 - Frontend: React.js with TypeScript
 - Styling: Material-UI (MUI)
 - State Management: React Hooks
+- Deployment: Docker with Cloudflare Tunnel
 
 ## Project Structure
 ```
@@ -25,6 +26,8 @@ This platform enables users to:
 │   │   ├── types/      # TypeScript type definitions
 │   │   ├── utils/      # Utility functions
 │   │   └── App.tsx     # Main application component
+├── Dockerfile          # Docker configuration
+├── docker-compose.yml  # Docker Compose configuration
 └── README.md           # Project overview and setup instructions
 ```
 
@@ -55,6 +58,8 @@ This platform enables users to:
 - [x] Create deployment scripts
 - [x] Final testing and bug fixes
 - [x] Documentation updates
+- [x] Dockerize application
+- [x] Set up Cloudflare Tunnel
 
 ## Features Implemented
 
@@ -116,13 +121,36 @@ This platform enables users to:
 
 ## Running the Application Locally
 
+### Method 1: Node.js
 1. Clone the repository
 2. Navigate to the frontend directory: `cd frontend`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+### Method 2: Docker
+1. Ensure Docker and Docker Compose are installed
+2. Clone the repository
+3. Build and start the containers:
+   ```bash
+   docker-compose up -d
+   ```
+4. The application will be available through the Cloudflare tunnel
+
 ## Deployment Instructions
+
+### Deploying with Docker and Cloudflare Tunnel
+
+The application is configured to run in Docker and is exposed through a Cloudflare tunnel.
+
+1. Ensure Docker and Docker Compose are installed
+2. Run the following command:
+   ```bash
+   docker-compose up -d
+   ```
+3. The application will be accessible through the Cloudflare tunnel.
+
+For more details on Docker deployment, see [DOCKER_README.md](DOCKER_README.md).
 
 ### Deploying to Heroku
 

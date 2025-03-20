@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # The main application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - app-network
+
+  # Cloudflare tunnel
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token eyJhIjoiZmRkYjUzODExNWRlMzJhYmQ3M2RiNmZjNjk4ZWJhZDIiLCJ0IjoiYTg1YmM4MjgtYjEyMi00NDI0LWIxNjYtNzRhNDM0MDZkYzQ5IiwicyI6Ik9HSXhOMlpqTURJdE56UTJZUzAwTldNeUxXSXhNRGN0WlRGalpXVXdaVEk0TXpneiJ9
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge 
